@@ -63,8 +63,3 @@ def process_all_folders(base_path, filter_directorate=None):
                     if filter_directorate is None or data["directorate"] == filter_directorate:
                         all_data.append(data)
     return pd.DataFrame(all_data)
-
-# Example usage
-base_path = "../nsf_data"  # Adjust this path as needed
-df = process_all_folders(base_path)
-df.to_csv('nsf_data.csv', index=False)
