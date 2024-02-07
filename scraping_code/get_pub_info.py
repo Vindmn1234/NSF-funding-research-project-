@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 import time
 import pandas as pd
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, StaleElementReferenceException
+import chardet
 
 def extract_info_from_html(publication_url, driver):
     driver.get(publication_url)
@@ -89,7 +90,7 @@ df["Publication Date"] = ""
 df["Journal"] = ""
 df["Abstract"] = ""
 df["Citations"] = ""
-import chardet
+
 # Iterate through each row, execute the scraping function, and update the DataFrame
 for index, row in df.iterrows():
 
@@ -117,7 +118,7 @@ for index, row in df.iterrows():
         print("Driver closed. Sleeping for 20 seconds...")
         time.sleep(20)
         # Restart WebDriver
-        driver = webdriver.Chrome(service=cService, options=options)
+        driver = webdriver.Chrome(options=options)
 
 # Save remaining data
 df.to_csv(output_csv_file, index=False, encoding='utf-8-sig')

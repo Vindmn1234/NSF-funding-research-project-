@@ -18,13 +18,13 @@ options.add_argument('--headless=new')
 # Here, ensure that chromedriver.exe is in system PATH
 # Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
 # If not, move it to the system PATH to avoid running webdriver.ChromeService()
-driver = webdriver.Chrome(options=options)
+# driver = webdriver.Chrome(options=options)
 
 for index, row in df.iterrows():
-    url = row['url']
+    # Configure webdriver (again) every time after quitted for each iteration
+    driver = webdriver.Chrome(options=options)
 
-    # Configure Selenium WebDriver
-    driver = webdriver.Chrome(service=cService)
+    url = row['url']
 
     # Visit the author's homepage
     driver.get(url)
