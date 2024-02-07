@@ -67,13 +67,15 @@ def find_interests(driver, url):
 
 
 def update_and_save_dataframe(df):
-    # 配置Selenium WebDriver
+    # Configure Selenium WebDriver
     options = webdriver.ChromeOptions()
+    # Set browser options
     options.add_argument('--disable-blink-features=AutomationControlled')
-    options.add_argument('--headless==new')
-    cService = webdriver.ChromeService(
-        executable_path=r"../chromedriver.exe")
-    driver = webdriver.Chrome(service=cService)
+    options.add_argument('--headless=new')
+    # Here, ensure that chromedriver.exe is in system PATH
+    # Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
+    # If not, move it to the system PATH to avoid running webdriver.ChromeService()
+    driver = webdriver.Chrome(options=options)
 
     # Updates Google Scholar urls
     df = df.dropna(subset=['email'])
@@ -129,7 +131,7 @@ def update_and_save_dataframe(df):
 
 
 # example
-nsf_df = pd.read_csv('author_url_2019.csv')
+# nsf_df = pd.read_csv('author_url_2019.csv')
 
-update_and_save_dataframe(nsf_df)
+# update_and_save_dataframe(nsf_df)
 

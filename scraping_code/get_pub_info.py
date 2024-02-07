@@ -72,10 +72,10 @@ options = webdriver.ChromeOptions()
 # Set browser options
 options.add_argument('--disable-blink-features=AutomationControlled')
 options.add_argument('--headless=new')
-cService = webdriver.ChromeService(
-    executable_path=r"D:\learning materials\Chicago\MACS 30122\final\chromedriver.exe")
-
-driver = webdriver.Chrome(service=cService, options=options)
+# Here, ensure that chromedriver.exe is in system PATH
+# Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
+# If not, move it to the system PATH to avoid running webdriver.ChromeService()
+driver = webdriver.Chrome(options=options)
 
 # Read CSV file
 input_csv_file = "author_publications_2016_2022.csv"

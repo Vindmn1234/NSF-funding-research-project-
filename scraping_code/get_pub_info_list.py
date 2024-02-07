@@ -14,9 +14,11 @@ all_publications = pd.DataFrame()
 options = webdriver.ChromeOptions()
 # Set browser options
 options.add_argument('--disable-blink-features=AutomationControlled')
-options.add_argument('--headless')
-cService = webdriver.ChromeService(
-    executable_path=r"D:\learning materials\Chicago\MACS 30122\final\chromedriver.exe")
+options.add_argument('--headless=new')
+# Here, ensure that chromedriver.exe is in system PATH
+# Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
+# If not, move it to the system PATH to avoid running webdriver.ChromeService()
+driver = webdriver.Chrome(options=options)
 
 for index, row in df.iterrows():
     url = row['url']
