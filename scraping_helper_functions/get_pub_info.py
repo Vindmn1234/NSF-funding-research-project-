@@ -248,4 +248,6 @@ def generate_pub_info_table(awarded_year):
     driver.quit()
 
     # Remove the intermediate pub_url file after finish running this function
+    os.remove(pub_url_path)
+    print(f"The intermediate file {pub_url_path} has been deleted.")
 
