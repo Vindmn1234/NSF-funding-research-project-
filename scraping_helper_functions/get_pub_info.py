@@ -37,11 +37,11 @@ def get_pub_url(awarded_year):
     # Create an empty DataFrame to store all authors' publication information
     all_publications = pd.DataFrame()
 
-    for _, row in df.iterrows():
+    for _, author_row in df.iterrows():
         # Configure webdriver (again) every time after quitted for each iteration
         driver = initialize_driver()
 
-        url = row['url']
+        url = author_row['url']
 
         # Visit the author's homepage
         driver.get(url)
@@ -70,7 +70,10 @@ def get_pub_url(awarded_year):
                 # Check if publication_year falls within the desired range
                 if awarded_year - 3 <= publication_year <= awarded_year + 3:
                     title = row.find_element(By.CSS_SELECTOR, "a.gsc_a_at").text
+                    # Ensure total number of citation is an integer
                     cited_by = row.find_element(By.CSS_SELECTOR, "a.gsc_a_ac").text
+                    if cited_by:
+                        cited_by = int(cited_by)
                     paper_url = row.find_element(By.CSS_SELECTOR, "a.gsc_a_at").get_attribute("href")
 
                     publications.append({
@@ -88,7 +91,7 @@ def get_pub_url(awarded_year):
         df_len = len(author_publications_df)
         insert_columns = ["first_name", "middle_name", "last_name", "email"]
         for i, v in enumerate(insert_columns):
-            author_publications_df.insert(loc=i, column=v, value=[row[v]] * df_len)
+            author_publications_df.insert(loc=i, column=v, value=[author_row[v]] * df_len)
 
         # Add the author's publication information to the overall DataFrame
         all_publications = pd.concat([all_publications, author_publications_df], ignore_index=True)
