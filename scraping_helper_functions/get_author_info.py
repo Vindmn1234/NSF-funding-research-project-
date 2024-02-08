@@ -165,7 +165,7 @@ def retrieve_author_info(nsf_df, year):
         # Quit the driver after every 50 rows to prevent anti-scraping
         if (index + 1) % 50 == 0:
             # Temporarily store results
-            nsf_df_subset.to_csv(author_info_path, index=False)
+            nsf_df_subset.to_csv(author_info_path, index=False, encoding='utf-8-sig')
             driver.quit()
             time.sleep(1)
             # Reload the driver
@@ -175,6 +175,6 @@ def retrieve_author_info(nsf_df, year):
     driver.quit()
     
     # save DataFrame
-    nsf_df_subset.to_csv(author_info_path, index=False)
+    nsf_df_subset.to_csv(author_info_path, index=False, encoding='utf-8-sig')
 
 
