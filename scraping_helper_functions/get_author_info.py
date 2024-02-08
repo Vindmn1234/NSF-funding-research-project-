@@ -1,7 +1,6 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-
+from webdriver_setup import initialize_driver
 
 def find_url(driver, full_name, email_domain):
     '''
@@ -101,63 +100,80 @@ def find_interests(driver, url):
     return interests
 
 
-def update_and_save_dataframe(df):
+def retrieve_author_info(nsf_df, year):
+    '''
+    Retrieve awarded author's basic information.
+
+    Inputs:
+        1) nsf_df: a pandas DataFrame of NSF awarded projects' information
+        2) year: awarded year
+    
+    Returns: a pandas DataFrame containing awarded author's Google Scholar url,
+        citation-related indices and research interest(s)
+    '''
+    
     # Configure Selenium WebDriver
-    options = webdriver.ChromeOptions()
-    # Set browser options
-    options.add_argument('--disable-blink-features=AutomationControlled')
-    options.add_argument('--headless=new')
-    # Here, ensure that chromedriver.exe is in system PATH
-    # Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
-    # If not, move it to the system PATH to avoid running webdriver.ChromeService()
-    driver = webdriver.Chrome(options=options)
+    driver = initialize_driver()
 
-    # Updates Google Scholar urls
-    df = df.dropna(subset=['email'])
-    # df['url'] = None
+    # Define output file path
+    author_info_path = f"database/author_info_{year}.csv"
 
-    # for index, row in df.iterrows():
-    #     # driver = webdriver.Chrome(service=cService, options=options)
-    #     full_name = row['first_name'] + '+' + row['last_name']
-    #     full_name = full_name.strip()
-    #     email_domain = row['email'].split('@')[-1]
-    #
-    #     url = row['url']  # get existing URL
-    #     if pd.isna(url):  # if url NaN find_url
-    #         url = find_url(driver, full_name, email_domain)
-    #         df.loc[index, 'url'] = url
-    #     print(url)
-    #     time.sleep(1)
-    #     # driver.quit()
-    #     if index % 50 == 0:
-    #         df.to_csv("author_url_blank.csv", index=False)  # save every 50 rows
-    # driver.quit()
+    # Focus on the specific awared year and author-related columns
+    initial_columns =  ["first_name", "middle_name", "last_name", "email", "institution"]
+    nsf_df_subset = nsf_df.loc[nsf_df["year"] == year, initial_columns]
 
-    df = df.dropna(subset=['url'])
-    df['interests'] = None
+    # Removes rows where there are no emails for awarded authors 
+    nsf_df_subset = nsf_df_subset.dropna(subset=['email'])
+    nsf_df_subset['url'] = None
 
-    for index, row in df.iterrows():
+    # First retrieve the author's Google Scholar's url from 
+    # searching author's name on Google Scholar using selenium
+    # (Remember to use Uchicago's vpn to prevent anti-scraping)
+    for index, row in nsf_df_subset.iterrows():
+        # Get author's full name and email domain to find Google Scholar's url
+        full_name = row['first_name'] + '+' + row['last_name']
+        full_name = full_name.strip()
+        email_domain = row['email'].split('@')[-1]
+  
+        url = find_url(driver, full_name, email_domain)
+        nsf_df_subset.loc[index, 'url'] = url
+        print(url)
+        time.sleep(1)
+
+    nsf_df_subset = nsf_df_subset.dropna(subset=['url'])
+    # Initialize a column related to author's research interest
+    nsf_df_subset['interests'] = None
+
+    # Go to the author's Google Scholar page based on previously scraped url
+    for index, row in nsf_df_subset.iterrows():
         url = row['url']
         # Updates citations
         total_citations, h_index, year_citations = find_citations(driver, url)
-        df.at[index, 'total_citations'] = total_citations
-        df.at[index, 'h_index'] = h_index
+        nsf_df_subset.at[index, 'total_citations'] = total_citations
+        nsf_df_subset.at[index, 'h_index'] = h_index
 
         for year, citations in year_citations.items():
             col_name = f'citations_{year}'
-            df.at[index, col_name] = citations
+            nsf_df_subset.at[index, col_name] = citations
 
         # Updates interests
         interests = find_interests(driver, url)
         if interests:
-            df.at[index, 'interests'] = [interest for interest in interests]
-
-        print(interests)
+            nsf_df_subset.at[index, 'interests'] = [interest for interest in interests]
         time.sleep(1)
 
-        if index % 50 == 0:
-            df.to_csv("author_info_2019.csv", index=False)  # save every 50 rows
+        # Quit the driver after every 50 rows to prevent anti-scraping
+        if index % 15 == 0:
+            # Temporarily store results
+            nsf_df_subset.to_csv(author_info_path, index=False)
+            driver.quit()
+            time.sleep(1)
+            # Reload the driver
+            driver = initialize_driver()
+
     driver.quit()
+    
     # save DataFrame
-    df.to_csv('author_info_2019.csv', index=False)
+    nsf_df_subset.to_csv(author_info_path, index=False)
+
 
