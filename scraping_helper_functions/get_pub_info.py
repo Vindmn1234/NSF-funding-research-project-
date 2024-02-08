@@ -70,10 +70,7 @@ def get_pub_url(awarded_year):
                 # Check if publication_year falls within the desired range
                 if awarded_year - 3 <= publication_year <= awarded_year + 3:
                     title = row.find_element(By.CSS_SELECTOR, "a.gsc_a_at").text
-                    # Ensure total number of citation is an integer
                     cited_by = row.find_element(By.CSS_SELECTOR, "a.gsc_a_ac").text
-                    if cited_by:
-                        cited_by = int(cited_by)
                     paper_url = row.find_element(By.CSS_SELECTOR, "a.gsc_a_at").get_attribute("href")
 
                     publications.append({
