@@ -137,7 +137,7 @@ def retrieve_author_info(nsf_df, year):
   
         url = find_url(driver, full_name, email_domain)
         nsf_df_subset.loc[index, 'url'] = url
-        print(url)
+        print(f"Returning {full_name}'s Google Scholar url: {url} \n")
         time.sleep(1)
 
     nsf_df_subset = nsf_df_subset.dropna(subset=['url'])
