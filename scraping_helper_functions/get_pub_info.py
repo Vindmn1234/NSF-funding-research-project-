@@ -83,6 +83,13 @@ def get_pub_url(awarded_year):
         # Convert the author's publication information into a DataFrame
         author_publications_df = pd.DataFrame(publications)
 
+        # Also append the author's email (number of times equal to numbe of rows)
+        # to relate `author_info` table to later `pub_info` table
+        df_len = len(author_publications_df)
+        insert_columns = ["first_name", "middle_name", "last_name", "email"]
+        for i, v in enumerate(insert_columns):
+            author_publications_df.insert(loc=i, column=v, value=[row[v]] * df_len)
+
         # Add the author's publication information to the overall DataFrame
         all_publications = pd.concat([all_publications, author_publications_df], ignore_index=True)
         all_publications.to_csv(pub_url_path, index=False, encoding='utf-8-sig')
@@ -250,4 +257,3 @@ def generate_pub_info_table(awarded_year):
     # Remove the intermediate pub_url file after finish running this function
     os.remove(pub_url_path)
     print(f"The intermediate file {pub_url_path} has been deleted.")
-
