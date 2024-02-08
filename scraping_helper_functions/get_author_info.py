@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 import time
-from webdriver_setup import initialize_driver
+from .webdriver_setup import initialize_driver
 
 def find_url(driver, full_name, email_domain):
     '''
@@ -137,7 +137,7 @@ def retrieve_author_info(nsf_df, year):
   
         url = find_url(driver, full_name, email_domain)
         nsf_df_subset.loc[index, 'url'] = url
-        print(f"Returning {full_name}'s Google Scholar url: {url} \n")
+        print(f"Returning {row['first_name']} {row['last_name']}'s Google Scholar url: {url} \n")
         time.sleep(1)
 
     nsf_df_subset = nsf_df_subset.dropna(subset=['url'])
