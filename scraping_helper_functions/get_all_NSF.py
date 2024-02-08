@@ -2,8 +2,18 @@ import pandas as pd
 from lxml import etree
 import os
 
-# Extracts data from downloaded NSF files
+
 def extract_data_from_file(file_path):
+    '''
+    Extracts data from a downloaded NSF file.
+
+    Inputs:
+        1) file_path: file path of a specific NSF xml file
+    
+    Returns: a pandas DataFrame containing information about NSF awarded project
+    '''
+
+    # Extract data from the xml file
     tree = etree.parse(file_path)
     root = tree.getroot()
 
@@ -41,25 +51,49 @@ def extract_data_from_file(file_path):
             extracted_data["last_name"] = investigator.findtext('LastName') or ''
             extracted_data["email"] = investigator.findtext('EmailAddress').strip() if investigator.findtext(
                 'EmailAddress') else ''
-            break  # Stop after finding the principal investigator
+            # Stop after finding the principal investigator
+            break  
 
     return extracted_data
 
 
-# Processes all folders from 1981 to 2023
-def process_all_folders(base_path, filter_directorate=None):
+def process_all_folders(base_path, start_year, end_year,
+                        filter_directorate=None, filter_division=None):
+    '''
+    Processes yearly awarded data folders unzipped from NSF official website.
+
+    Inputs:
+        1) base_path: path storing all NSF awarded data
+        2) start_year: starting year of NSF awards to focus on
+        3) end_year: ending year of NSF awards to focus on
+        4) filter_directorate: directorate of NSF to filter
+        5) filter_division: division under directorate of NSF to filter
+
+    Returns: a pandas DataFrame containing information about NSF awarded project (for given years)
+    '''
+
     all_data = []
-    for year in range(1981, 2024):  # Loop through each year
-        print(year)
+    for year in range(start_year, end_year + 1):  # Loop through each year
+        print(f"Processing NSF data folder for year {year}:\n")
         folder_path = os.path.join(base_path, str(year))
         if os.path.exists(folder_path) and os.path.isdir(folder_path):
             for filename in os.listdir(folder_path):
+                # Target the .xml file of NSF awards
                 if filename.endswith('.xml'):
                     file_path = os.path.join(folder_path, filename)
                     try:
                         data = extract_data_from_file(file_path)
                     except:
                         pass
-                    if filter_directorate is None or data["directorate"] == filter_directorate:
+                    # Filter based on given directorate and directorate (if any)
+                    # Assume data should be appended unless a condition fails
+                    should_append = True  
+                    if filter_directorate and data["directorate"] != filter_directorate:
+                        should_append = False
+                    if filter_division and data["division"] != filter_division:
+                        should_append = False
+                    
+                    if should_append:
                         all_data.append(data)
+
     return pd.DataFrame(all_data)
