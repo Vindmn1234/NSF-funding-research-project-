@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 import time
 from .webdriver_setup import initialize_driver
+import pandas as pd
 
 def find_url(driver, full_name, email_domain):
     '''
@@ -100,81 +101,128 @@ def find_interests(driver, url):
     return interests
 
 
-def retrieve_author_info(nsf_df, year):
+def retrieve_author_info(nsf_df, year, driver):
     '''
     Retrieve awarded author's basic information.
-
     Inputs:
         1) nsf_df: a pandas DataFrame of NSF awarded projects' information
-        2) year: awarded year
-    
-    Returns: a pandas DataFrame containing awarded author's Google Scholar url,
-        citation-related indices and research interest(s)
+        2) year: the awarded year
+        3) driver: An instance of Selenium WebDriver for browser automation
+     
+   Returns: 
+        A DataFrame containing awarded author's name, email, Google Scholar URL,
+        citation-related indices, research interests, and citations by year
     '''
-    
-    # Configure Selenium WebDriver
-    driver = initialize_driver()
-
-    # Define output file path
-    author_info_path = f"database/author_info_{year}.csv"
-
-    # Focus on the specific awared year and author-related columns
-    initial_columns =  ["first_name", "middle_name", "last_name", "email", "institution"]
-    nsf_df_subset = nsf_df.loc[nsf_df["year"] == year, initial_columns]
-
-    # Removes rows where there are no emails for awarded authors 
-    nsf_df_subset = nsf_df_subset.dropna(subset=['email'])
-    nsf_df_subset['url'] = None
-
-    # First retrieve the author's Google Scholar's url from 
-    # searching author's name on Google Scholar using selenium
-    # (Remember to use Uchicago's vpn to prevent anti-scraping)
-    for index, row in nsf_df_subset.iterrows():
-        # Get author's full name and email domain to find Google Scholar's url
-        full_name = row['first_name'] + '+' + row['last_name']
-        full_name = full_name.strip()
+    # Filter the DataFrame for the specified year
+    nsf_df_filtered = nsf_df[nsf_df['year'] == year].dropna(subset=['email'])
+ 
+    # Define output DataFrame structure with basic columns
+    base_columns = ["first_name", "middle_name", "last_name", "email",
+                    "institution", "url", "total_citations", "h_index", "interests"]
+    processed_df = pd.DataFrame(columns=base_columns)
+ 
+     # First retrieve the author's Google Scholar's url from 
+     # searching author's name on Google Scholar using selenium
+     # (Remember to use Uchicago's vpn to prevent anti-scraping)
+    for _, row in nsf_df_filtered.iterrows():
+        full_name = f"{row['first_name']} {row['last_name']}".strip()
         email_domain = row['email'].split('@')[-1]
-  
-        url = find_url(driver, full_name, email_domain)
-        nsf_df_subset.loc[index, 'url'] = url
-        print(f"Returning {row['first_name']} {row['last_name']}'s Google Scholar url: {url} \n")
-        time.sleep(1)
 
-    nsf_df_subset = nsf_df_subset.dropna(subset=['url'])
-    # Initialize a column related to author's research interest
-    nsf_df_subset['interests'] = None
+        try:
+            url = find_url(driver, full_name, email_domain)
+            if url:
+                print(f"Returning {row['first_name']} {row['last_name']}'s Google Scholar url: {url}")
+                total_citations, h_index, year_citations = find_citations(driver, url)
+                interests = find_interests(driver, url)
+            else:
+                raise ValueError("URL not found")
+        except Exception as e:
+            print(f"Error processing {full_name}: {e}")
+            url, total_citations, h_index, interests = None, None, None, None
+            year_citations = {}
 
-    # Go to the author's Google Scholar page based on previously scraped url
-    for index, row in nsf_df_subset.iterrows():
-        url = row['url']
-        # Updates citations
-        total_citations, h_index, year_citations = find_citations(driver, url)
-        nsf_df_subset.at[index, 'total_citations'] = total_citations
-        nsf_df_subset.at[index, 'h_index'] = h_index
+        new_row = {
+            "first_name": row['first_name'],
+            "middle_name": row.get('middle_name', ''),
+            "last_name": row['last_name'],
+            "email": row['email'],
+            "institution": row['institution'],
+            "url": url,
+            "total_citations": total_citations,
+            "h_index": h_index,
+            "interests": interests
+        }
 
-        for year, citations in year_citations.items():
-            col_name = f'citations_{year}'
-            nsf_df_subset.at[index, col_name] = citations
+        # Append the new row to the DataFrame
+        new_index = len(processed_df)  # Get the new row's index
+        processed_df = pd.concat([processed_df, pd.DataFrame([new_row])], ignore_index=True)
 
-        # Updates interests
-        interests = find_interests(driver, url)
-        if interests:
-            nsf_df_subset.at[index, 'interests'] = [interest for interest in interests]
-        time.sleep(1)
+        for citation_year, citations in year_citations.items():
+            citation_col_name = f"citation_{citation_year}"
 
-        # Quit the driver after every 50 rows to prevent anti-scraping
-        if (index + 1) % 50 == 0:
-            # Temporarily store results
-            nsf_df_subset.to_csv(author_info_path, index=False, encoding='utf-8-sig')
-            driver.quit()
-            time.sleep(1)
-            # Reload the driver
+            # Directly update the cell for the current author and year
+            # If the column does not exist, it will be automatically added
+            processed_df.loc[new_index, citation_col_name] = citations
+
+    return processed_df
+
+
+def safe_retrieve_author_info(nsf_df, year):
+    '''
+    Retrieve awarded author's basic information safely by dealing with potential
+    errors using selenium webdriver (filtering out authors whose Google scholar
+    url cannot be successfully retrieved).
+ 
+    Inputs:
+        1) nsf_df: a pandas DataFrame of NSF awarded projects' information
+        2) year: the awarded year
+ 
+    Returns: 
+        A DataFrame containing awarded author's name, email, Google Scholar URL,
+        citation-related indices, research interests, and citations by year
+    '''
+    processed_data_all = pd.DataFrame()
+
+    # Pre-filter the nsf_df to focus on a specific year
+    nsf_df_filtered = nsf_df[nsf_df['year'] == year]
+
+    while not nsf_df_filtered.empty:
+        try:
             driver = initialize_driver()
-            print("Driver reloaded after 50 rows")
+            processed_chunk = retrieve_author_info(nsf_df, year, driver)
 
-    driver.quit()
-    
-    # save DataFrame
-    nsf_df_subset.to_csv(author_info_path, index=False, encoding='utf-8-sig')
+            if not processed_chunk.empty:
+                # Append processed_chunk to the consolidated DataFrame
+                processed_data_all = pd.concat([processed_data_all, processed_chunk],
+                                               ignore_index=True)
+                # Drop rows from nsf_df using the emails from processed_chunk
+                processed_emails = processed_chunk['email'].values
+                nsf_df_filtered = nsf_df_filtered[~nsf_df_filtered['email'].isin(processed_emails)]
+            
+            # Check if nsf_df_filtered has only one row (i.e., last author to scrape)
+            # If so, break out of the loop
+            if len(nsf_df_filtered) <= 1:
+                print("All data processed, exiting loop.")
+                break
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            time.sleep(20)  # Wait a bit before retrying or proceeding
+        finally:
+            driver.quit()  # Ensure driver is closed after each iteration
+
+    if not processed_data_all.empty:
+        print(f"Scraped a total number of {len(processed_data_all)} authors.")
+        # Drop authors whose Google Scholar page url is missing
+        processed_data_all_filtered = processed_data_all.dropna(subset=["url"])
+        print(f"{len(processed_data_all_filtered)} authors have intact Google scholar url.")
+
+        # Save the consolidated data to a CSV file
+        processed_data_all_filtered.to_csv(f"database/author_info_{year}.csv",
+                                           index=False, encoding='utf-8-sig')
+        print(f"Successfully processed and saved all data for year {year}.")
+
+        return processed_data_all_filtered
+    else:
+        print("No data processed.")
 
 
