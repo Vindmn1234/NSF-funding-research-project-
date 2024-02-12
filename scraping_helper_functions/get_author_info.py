@@ -220,8 +220,6 @@ def safe_retrieve_author_info(nsf_df, year):
         processed_data_all_filtered.to_csv(f"database/author_info_{year}.csv",
                                            index=False, encoding='utf-8-sig')
         print(f"Successfully processed and saved all data for year {year}.")
-
-        return processed_data_all_filtered
     else:
         print("No data processed.")
 
