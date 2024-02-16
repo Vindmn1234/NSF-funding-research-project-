@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from .webdriver_setup import initialize_driver
 import os
+import argparse
 
 def get_pub_url(awarded_year):
     '''
@@ -257,3 +258,31 @@ def generate_pub_info_table(awarded_year):
     # Remove the intermediate pub_url file after finish running this function
     os.remove(pub_url_path)
     print(f"The intermediate file {pub_url_path} has been deleted.")
+
+
+# Use this function with the command-line interface
+if __name__ == "__main__":
+    # Initialize the parser
+    parser = argparse.ArgumentParser(description='Generate a CSV of publication-related information from Google Scholar for a specified awarded year.')
+
+    # Add the 'awarded_year' argument
+    parser.add_argument('awarded_year', type=int, help='The year for which to retrieve publication information.')
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    # Extract the awarded year from the command-line arguments
+    awarded_year = args.awarded_year
+
+    # File path check and function call
+    pub_info_file_path = f"database/pub_info_{awarded_year}.csv"
+    if not os.path.exists(pub_info_file_path):
+        generate_pub_info_table(awarded_year)
+    else:
+        print(f"Publication info for year {awarded_year} already exists at {pub_info_file_path}.")
+
+# Sample usage of the command-line interface (using 2011 as the year to scrape)
+# python scraping_helper_functions/get_pub_info.py 2011
+        
+# Sample usage of the command-line interface to scrape from 2011 to 2020
+# for year in {2011..2020}; do python scraping_helper_functions/get_pub_info.py $year; done

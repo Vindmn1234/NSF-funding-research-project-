@@ -1,7 +1,7 @@
 import pandas as pd
 from lxml import etree
 import os
-
+import argparse
 
 def extract_data_from_file(file_path):
     '''
@@ -97,3 +97,35 @@ def process_all_folders(base_path, start_year, end_year,
                         all_data.append(data)
 
     return pd.DataFrame(all_data)
+
+# Use this function with the command-line interface
+if __name__ == "__main__":
+    # Initialize the parser
+    parser = argparse.ArgumentParser(description='Process NSF data folders and create a dataset of funding_info.')
+
+    # Add arguments
+    parser.add_argument('--base_path', type=str, default="nsf_data", help='Base path storing all NSF awarded data.')
+    parser.add_argument('--start_year', type=int, default=2011, help='Starting year of NSF awards to focus on.')
+    parser.add_argument('--end_year', type=int, default=2020, help='Ending year of NSF awards to focus on.')
+    parser.add_argument('--filter_directorate', type=str, default="Direct For Social, Behav & Economic Scie", help='Directorate of NSF to filter.')
+    parser.add_argument('--filter_division', type=str, default="Division Of Behavioral and Cognitive Sci", help='Division under directorate of NSF to filter.')
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    # Construct nsf_data_file_path based on start_year and end_year
+    nsf_data_file_path = f'database/funding_info_{args.start_year}_{args.end_year}.csv'
+
+    if os.path.exists(nsf_data_file_path):
+        nsf_df = pd.read_csv(nsf_data_file_path)
+    else:
+        nsf_df = process_all_folders(base_path=args.base_path,
+                                     start_year=args.start_year, end_year=args.end_year,
+                                     filter_directorate=args.filter_directorate,
+                                     filter_division=args.filter_division)
+        # Ensure the directory exists before saving
+        os.makedirs(os.path.dirname(nsf_data_file_path), exist_ok=True)
+        nsf_df.to_csv(nsf_data_file_path, index=False)
+
+# Sample usage of the command-line interface (using the default arguments)
+# python scraping_helper_functions/get_all_NSF.py

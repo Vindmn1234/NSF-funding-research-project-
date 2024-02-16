@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 import time
 from .webdriver_setup import initialize_driver
 import pandas as pd
+import argparse
+import os
 
 def find_url(driver, full_name, email_domain):
     '''
@@ -224,3 +226,40 @@ def safe_retrieve_author_info(nsf_df, year):
         print("No data processed.")
 
 
+# Use this function with the command-line interface
+if __name__ == "__main__":
+    # Initialize the parser
+    parser = argparse.ArgumentParser(description='Retrieve author information for a specified year from NSF data file.')
+
+    # Add the 'file_path' argument for the NSF DataFrame
+    parser.add_argument('--funding_info_file_path', type=str, default="database/funding_info_2011_2020.csv", help='The file path to the NSF data CSV file.')
+
+    # Add the 'year' argument
+    parser.add_argument('year', type=int, help='The year of interest for author information retrieval.')
+
+    # Parse the arguments
+    args = parser.parse_args()
+    funding_info_file_path = args.funding_info_file_path
+    year = args.year
+    
+    # Check if the specified NSF data file exists
+    if not os.path.exists(funding_info_file_path):
+        print(f"The file {funding_info_file_path} does not exist.")
+    else:
+        nsf_df = pd.read_csv(funding_info_file_path)
+
+        # Construct the output file name based on the year
+        author_info_file_path = f"database/author_info_{year}.csv"
+
+        # Check if the file exists before attempting to retrieve author info
+        if not os.path.exists(author_info_file_path):
+            safe_retrieve_author_info(nsf_df, year)
+        else:
+            print(f"Author info for year {year} already exists at {author_info_file_path}.")
+
+# Sample usage of the command-line interface 
+# (using the default argument of funding_info path and 2011 as the year to scrape)
+# python scraping_helper_functions/get_author_info.py 2011
+            
+# Sample usage of the command-line interface to scrape from 2011 to 2020
+# for year in {2011..2020}; do python scraping_helper_functions/get_author_info.py $year; done
