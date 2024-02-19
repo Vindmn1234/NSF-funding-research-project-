@@ -114,7 +114,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Construct nsf_data_file_path based on start_year and end_year
-    nsf_data_file_path = f'database/funding_info_{args.start_year}_{args.end_year}.csv'
+    nsf_data_file_path = f'database/funding_info.csv'
 
     if os.path.exists(nsf_data_file_path):
         nsf_df = pd.read_csv(nsf_data_file_path)
