@@ -3,3 +3,8 @@ NSF_data
 
 # Ignore __pycache__
 __pycache__/
+
+# Ignore aggregated csv (due to large file size)
+database/content_analysis.csv
+database/cleaned_content_analysis
+database/preprocessed_content_analysis.csv
