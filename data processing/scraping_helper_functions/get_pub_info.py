@@ -20,10 +20,10 @@ def get_pub_url(awarded_year):
     '''
 
     # Define the path storing author info (i.e., `author_info` table)
-    author_info_path = f"database/author_info/author_info_{awarded_year}.csv"
+    author_info_path = f"../database/author_info/author_info_{awarded_year}.csv"
 
     # Define the path for the output (primarily, publication url)
-    pub_url_path = f"database/publication_info/pub_url_{awarded_year - 3}_{awarded_year + 3}.csv"
+    pub_url_path = f"../database/publication_info/pub_url_{awarded_year - 3}_{awarded_year + 3}.csv"
 
     # Make sure the author_info table exists
     try:
@@ -275,7 +275,7 @@ if __name__ == "__main__":
     awarded_year = args.awarded_year
 
     # File path check and function call
-    pub_info_file_path = f"database/publication_info/pub_info_{awarded_year}.csv"
+    pub_info_file_path = f"../database/publication_info/pub_info_{awarded_year}.csv"
     if not os.path.exists(pub_info_file_path):
         generate_pub_info_table(awarded_year)
     else:

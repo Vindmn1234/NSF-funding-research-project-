@@ -232,7 +232,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Retrieve author information for a specified year from NSF data file.')
 
     # Add the 'file_path' argument for the NSF DataFrame
-    parser.add_argument('--funding_info_file_path', type=str, default="database/funding_info.csv", help='The file path to the NSF data CSV file.')
+    parser.add_argument('--funding_info_file_path', type=str, default="../database/funding_info.csv", help='The file path to the NSF data CSV file.')
 
     # Add the 'year' argument
     parser.add_argument('year', type=int, help='The year of interest for author information retrieval.')
@@ -249,7 +249,7 @@ if __name__ == "__main__":
         nsf_df = pd.read_csv(funding_info_file_path)
 
         # Construct the output file name based on the year
-        author_info_file_path = f"database/author_info/author_info_{year}.csv"
+        author_info_file_path = f"../database/author_info/author_info_{year}.csv"
 
         # Check if the file exists before attempting to retrieve author info
         if not os.path.exists(author_info_file_path):
