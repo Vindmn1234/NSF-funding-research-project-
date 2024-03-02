@@ -27,7 +27,7 @@ and the corresponding award’s year, amount (<ins>4959</ins> entries in total);
 2) *Awarded author's Google Scholar page* (linked from NSF awards) to collect his/her 
 academic interests, h-index, and yearly citation counts three years before 
 and after the award (<ins>3230</ins> entries in total);
-3) *Google Scholar page for publication* 3 years before and after NSF awards for 
+3) *Google Scholar page for publication* (linked from author's Google Scholar page) 3 years before and after NSF awards for 
 each author from their Google Scholar page to collect publication-related information,
 including coauthors, journal of publication, paper tile and abstract (<ins>207370</ins> entries in total).
 
@@ -75,6 +75,22 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+### Setting up Chromedriver
+To facilitate the smooth running of the code, it is important to ensure that 
+`chromedriver.exe` is in system PATH (after installation). Type the following 
+commands to check where `chromedriver.exe` is located:
+- Windows:
+```
+where chromedriver
+```
+- MAC:
+```
+which chromedriver
+```
+
+If `chromedriver.exe` is not in system PATH, make sure to move it to the system PATH.
+
+
 ### Workflow
 This section outlines the (recommended) sequential order by which the users can play around with the code:
 
@@ -85,9 +101,9 @@ rm -r database/author_info database/publication_info
 rm database/author_info.csv database/funding_info.csv
 
 # Use command-line arguments to scrape data
-python data_processing/scraping_helper_functions/get_all_NSF.py
-for year in {2011..2020}; do python data_processing/scraping_helper_functions/get_author_info.py $year; done
-for year in {2011..2020}; do python data_processing/python scraping_helper_functions/get_pub_info.py $year; done
+python -m data_processing.scraping_helper_functions.get_all_NSF
+for year in {2011..2020}; do python -m data_processing.scraping_helper_functions.get_author_info $year; done
+for year in {2011..2020}; do python -m data_processing.scraping_helper_functions.get_pub_info $year; done
 ```
 1. The first step is to clean and merge data (i.e., funding, author, and publication information). To do so, simply run [clean.ipynb](data_processing/clean.ipynb) and subsequently [merge.ipynb](`data_processing/merge.ipynb`) under `data_processing` directory.
 2. The second step is to perform author clustering based on ti-idf vectors of paper abstract. To do so, simply run [cluster_by_author.ipynb](`author_clustering/cluster_by_author.ipynb`) under `author_clustering` directory.
@@ -105,3 +121,5 @@ for year in {2011..2020}; do python data_processing/python scraping_helper_funct
 https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#slide=id.g2bd8c1f1ef0_1_7
 2. This is the link for our team's **updated presentation slide**: 
 3. This is the link for our team's **video presentation**: 
+
+## Acknowledgement
