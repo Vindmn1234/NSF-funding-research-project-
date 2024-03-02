@@ -1,3 +1,9 @@
+# This python script is used to help transforming original xml files of NSF 
+# awards into a concatenated csv of all information about NSF awarded project.
+# Resources consulted online:
+    # 1) https://medium.com/analytics-vidhya/parsing-xml-files-in-python-d7c136bb9aa5
+    # 2) https://docs.python.org/3/library/argparse.html
+
 import pandas as pd
 from lxml import etree
 import os
@@ -83,6 +89,8 @@ def process_all_folders(base_path, start_year, end_year,
                     file_path = os.path.join(folder_path, filename)
                     try:
                         data = extract_data_from_file(file_path)
+                        # Add awarded year to the dictionary
+                        data['year'] = year
                     except:
                         pass
                     # Filter based on given directorate and directorate (if any)
@@ -126,6 +134,3 @@ if __name__ == "__main__":
         # Ensure the directory exists before saving
         os.makedirs(os.path.dirname(nsf_data_file_path), exist_ok=True)
         nsf_df.to_csv(nsf_data_file_path, index=False)
-
-# Sample usage of the command-line interface (using the default arguments)
-# python data_processing/scraping_helper_functions/get_all_NSF.py
