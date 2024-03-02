@@ -7,12 +7,12 @@ funding influences awarded authors' research quantity and quality.
 The following table outlines the table of contents for the main README file:
 | Section          | Description                                   |
 |------------------|-----------------------------------------------|
-| [Team Members and Division of Labor](#team-members-and-division-of-labor) | Information about this contributors to the project |
+| [Team Members](#team-members-and-division-of-labor) | Information about the contributors to this project |
 | [Project Description](#project-description) | Research questions, data analysis strategies, and result summary of this project |
 | [Github Repo Navigation](#github-repo-navigation) | Top-level directory layout of this repoistory |
-| [Link to Large Files "Ignored" by the Repo](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large files "ignored" by the repository |
+| [Link to Large Files](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large files "ignored" by the repository |
 | [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
-| [Usage of AI to Complete the Project](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
+| [Usage of AI](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
 | [Links to Presentation](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
 | [Acknowledgement 👏👏](#acknowledgement-👏👏) | Acknowledgement from team members  |
 
