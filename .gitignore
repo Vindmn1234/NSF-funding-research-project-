@@ -1,14 +1,7 @@
-# Ignore the unzipped xml files of specific funding information
+# Ignore the unzipped xml files of funding information for specific years
 NSF_data
-
-# Ignore __pycache__
-__pycache__/
 
 # Ignore large csv (due to large file size)
 database/publication_info.csv
 database/content_analysis.csv
-database/cleaned_content_analysis
 database/preprocessed_content_analysis.csv
-
-# Ignore Rmd file for STM
-stm.Rmd
