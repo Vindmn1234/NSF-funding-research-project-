@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 import time
-from .webdriver_setup import initialize_driver
+from webdriver_setup import initialize_driver
 import pandas as pd
 import argparse
 import os
