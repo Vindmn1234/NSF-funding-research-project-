@@ -1,7 +1,6 @@
 # `data_processing` Directory Structure
     .
     ├── scraping_helper_functions/     # A sub-directory containing helper functions for scraping
-        .
         ├── __init__.py           # Mark the directory as a Python package directory
         ├── get_all_NSF.py        # Convert xml files of NSF awards into a concatenated csv of information about NSF awarded projects
         ├── get_author_info.py    # Generate author's personal information linking from NSF awards
