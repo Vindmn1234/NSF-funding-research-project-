@@ -5,3 +5,6 @@ nsf_data
 database/publication_info.csv
 database/content_analysis.csv
 database/preprocessed_content_analysis.csv
+
+# Ignore __pycache__
+__pycache__
