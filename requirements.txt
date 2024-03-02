@@ -1,15 +1,5 @@
 # In terms of the Python environment for this project, it needs Python version no smaller than 3.11
 
-# Standard libraries that come with Python
-ast
-pickle
-os
-argparse
-time
-html
-re
-glob
-
 # Third-party packages (that could be installed using `pip install`)
 pandas==1.5.3
 numpy==1.23.5
