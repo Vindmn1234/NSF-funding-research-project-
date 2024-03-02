@@ -35,19 +35,26 @@ Data clearning and wrangling
 Data analysis strategy
 
 ## Github Repo Navigation
-The following is the **top-level directory layout** of this repo 
-(for detailed layout under each directory, please refer to the specific README file under each directory):
+The following is the **top-level directory layout** of this repo:
 
     .
     ├── author_clustering/            # Cluster authors based on tf-idf vectors of paper abstract
     ├── data_processing/              # Scrape, clean, and merge data (i.e., funding, author, and publication information)
     ├── database/                     # Store both raw and processed funding, author, and publication information
     ├── descriptive_visualization/    # Visualize descriptive results
+    ├── nsf_data/                     # NSF funding information from 2011 to 2020 (ignored by the repo)
     ├── regression/                   # Build and fit linear regression models
     ├── .gitignore
     ├── LICENSE
     ├── README.md
     └── requirements.txt
+
+For detailed layout under each directory, please refer to the specific README file under each directory:
+- [README for `author_clustering` directory](author_clustering/README.md)
+- [README for `data_processing` directory](data_processing/README.md)
+- [README for `database` directory](database/README.md)
+- [README for `descriptive_visualization` directory](descriptive_visualization/README.md)
+- [README for `regression` directory](regression/README.md)
 
 ## Link to Large Files "Ignored" by the Repo
 This is the link to the Google Drive where we store large files: https://drive.google.com/drive/u/0/folders/0AH5r0n8gE6Z2Uk9PVA?ths=true.
@@ -75,6 +82,8 @@ To install the packages required for this project, type the following command in
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+Create virtual environment
 
 ### Setting up Chromedriver
 To facilitate the smooth running of the code, it is important to ensure that 
@@ -109,12 +118,18 @@ python -m data_processing.scraping_helper_functions.get_all_NSF
 for year in {2011..2020}; do python -m data_processing.scraping_helper_functions.get_author_info $year; done
 for year in {2011..2020}; do python -m data_processing.scraping_helper_functions.get_pub_info $year; done
 ```
-. 
 
-1. The first step is to clean and merge data (i.e., funding, author, and publication information). To do so, simply run [clean.ipynb](data_processing/clean.ipynb) and subsequently [merge.ipynb](`data_processing/merge.ipynb`) under `data_processing` directory.
-2. The second step is to perform author clustering based on ti-idf vectors of paper abstract. To do so, simply run [cluster_by_author.ipynb](`author_clustering/cluster_by_author.ipynb`) under `author_clustering` directory.
+1. The first step is to clean and merge data (i.e., funding, author, and publication information). To do so, simply run [clean.ipynb](data_processing/clean.ipynb) and subsequently [merge.ipynb](data_processing/merge.ipynb) under `data_processing` directory.
+2. The second step is to perform author clustering based on ti-idf vectors of paper abstract. To do so, simply run [cluster_by_author.ipynb](author_clustering/cluster_by_author.ipynb) under `author_clustering` directory.
 3. The third step is to get descriptive visualization of the data. To do so, simply run [descriptive_visualization.ipynb](descriptive_visualization/descriptive_visualization.ipynb) under `descriptive_visualization` directory. 
-4. The fourth step is to build and fit multiple linear regression models. To do so, simply run [clean.ipynb](regression/clean.ipynb) and subsequently [reg.ipynb](regression/reg.ipynb) under `regression` directory 
+4. The fourth step is to build and fit multiple linear regression models. To do so, simply run [prepare_data.ipynb](regression/prepare_data.ipynb) and subsequently [reg.ipynb](regression/reg.ipynb) under `regression` directory 
+
+## Usage of AI to complete the project
+
+dynamic scraping
+command-line arguments for scraping helper functions 
+debugging
+git version control
 
 ## Division of Labor
 - Guankun Li: Data Scraping
@@ -130,6 +145,7 @@ https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#sl
 
 ## Data source
 
-## Acknowledgement
 
-## Usage of 
+## Acknowledgement 👏👏
+Our team would like to express our gratitude for instrcutor Sabrina Nardin and teaching assistants for their constructive feedback throughout the whole project.
+
