@@ -81,8 +81,8 @@ This section outlines the (recommended) sequential order by which the users can 
 0. In case you are interested in how the funding, author, and funding related csv files were generated in the first place, you can type the following command in the terminal:
 ```
 # Remove current funding, author, and publication information
-rm -r author_info publication_info
-rm author_info.csv funding_info.csv
+rm -r database/author_info database/publication_info
+rm database/author_info.csv database/funding_info.csv
 
 # Use command-line arguments to scrape data
 python data_processing/scraping_helper_functions/get_all_NSF.py
