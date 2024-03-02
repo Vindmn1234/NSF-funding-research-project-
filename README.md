@@ -21,13 +21,13 @@ The two **main objectives of this project** are:
 2. Identify which subfields within Behavioral and Cognitive Sciences are most affected by NSF funding in terms of 
 
 To answer the previous two research questions, this project relies on three **data sources**: 
-1) NSF awards from 2011 to 2020 (under the division of behavioral and cognitive science) 
+1) *NSF awards* from 2011 to 2020 (under the division of behavioral and cognitive science) 
 to collect awarded authors personal information, including name, email, institution, 
 and the corresponding award’s year, amount (<ins>4959</ins> entries in total);
-2) Awarded author's Google Scholar page (linked from NSF awards) to collect his/her 
+2) *Awarded author's Google Scholar page* (linked from NSF awards) to collect his/her 
 academic interests, h-index, and yearly citation counts three years before 
 and after the award (<ins>3230</ins> entries in total);
-3) Google Scholar page for publication 3 years before and after NSF awards for 
+3) *Google Scholar page for publication* 3 years before and after NSF awards for 
 each author from their Google Scholar page to collect publication-related information,
 including coauthors, journal of publication, paper tile and abstract (<ins>207370</ins> entries in total).
 
@@ -50,12 +50,12 @@ The following is the **top-level directory layout** of this repo
     └── requirements.txt
 
 ## Link to Large Files "Ignored" in the Repo
-This is the link to the Google Drive where we store large files: .
+This is the link to the Google Drive where we store large files: https://drive.google.com/drive/u/0/folders/0AH5r0n8gE6Z2Uk9PVA?ths=true.
 
 To integrate them into the whole workflow, please place them in the requried position as outlined in gitignore file:
 
-    # unzipped NSF funding data
-    NSF_data
+    # zipped NSF funding data (REMEMBER to unzip the zipped file)
+    nsf_data
 
     # csv files of concatenated publication data and tokenized text for content analysis 
     database/publication_info.csv
@@ -66,7 +66,32 @@ To integrate them into the whole workflow, please place them in the requried pos
 
 ### Configure the environment
 
+Either using base/conda environment or creating a virtual environment, 
+make sure that the Python version is no older than 3.11.
+
+To install the packages required for this project, type the following command in the terminal:
+```
+pip install -r requirements.txt
+```
+
 ### Workflow
+This section outlines the (recommended) sequential order by which the users can play around with the code:
+
+0. In case you are interested in how the funding, author, and funding related csv files were generated in the first place, you can type the following command in the terminal:
+```
+# Remove current funding, author, and publication information
+rm -r author_info publication_info
+rm author_info.csv funding_info.csv
+
+# Use command-line arguments to scrape data
+python data_processing/scraping_helper_functions/get_all_NSF.py
+for year in {2011..2020}; do python data_processing/scraping_helper_functions/get_author_info.py $year; done
+for year in {2011..2020}; do python data_processing/python scraping_helper_functions/get_pub_info.py $year; done
+```
+1. The first step is to clean and merge data (i.e., funding, author, and publication information). To do so, simply run [clean.ipynb](data_processing/clean.ipynb) and subsequently [merge.ipynb](`data_processing/merge.ipynb`) under `data_processing` directory.
+2. The second step is to perform author clustering based on ti-idf vectors of paper abstract. To do so, simply run [cluster_by_author.ipynb](`author_clustering/cluster_by_author.ipynb`) under `author_clustering` directory.
+3. The third step is to get descriptive visualization of the data. To do so, simply run [descriptive_visualization.ipynb](descriptive_visualization/descriptive_visualization.ipynb) under `descriptive_visualization` directory. 
+4. The fourth step is to build and fit multiple linear regression models. To do so, simply run [clean.ipynb](regression/clean.ipynb) and subsequently [reg.ipynb](regression/reg.ipynb) under `regression` directory 
 
 ## Division of Labor
 - Guankun Li: Data Scraping
