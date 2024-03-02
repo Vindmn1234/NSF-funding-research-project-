@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
 # Sample usage of the command-line interface 
 # (using the default argument of funding_info path and 2011 as the year to scrape)
-# python scraping_helper_functions/get_author_info.py 2011
+# python data_processing/scraping_helper_functions/get_author_info.py 2011
             
 # Sample usage of the command-line interface to scrape from 2011 to 2020
-# for year in {2011..2020}; do python scraping_helper_functions/get_author_info.py $year; done
+# for year in {2011..2020}; do python data_processing/scraping_helper_functions/get_author_info.py $year; done

@@ -128,4 +128,4 @@ if __name__ == "__main__":
         nsf_df.to_csv(nsf_data_file_path, index=False)
 
 # Sample usage of the command-line interface (using the default arguments)
-# python scraping_helper_functions/get_all_NSF.py
+# python data_processing/scraping_helper_functions/get_all_NSF.py
