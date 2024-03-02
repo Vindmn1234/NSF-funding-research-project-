@@ -1,3 +1,11 @@
+# This python script is used to generate author's specific publication-related 
+# information from the urls of their Google Scholar page generated earlier.
+# Resources consulted online:
+    # 1) https://www.selenium.dev/documentation/webdriver/
+    # 2) https://www.softwaretestinghelp.com/exception-handling-framework-selenium-tutorial-19/
+    # 3) https://selenium-python.readthedocs.io/locating-elements.html
+    # 4) https://docs.python.org/3/library/argparse.html
+
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 import time
@@ -20,10 +28,10 @@ def get_pub_url(awarded_year):
     '''
 
     # Define the path storing author info (i.e., `author_info` table)
-    author_info_path = f"../database/author_info/author_info_{awarded_year}.csv"
+    author_info_path = f"database/author_info/author_info_{awarded_year}.csv"
 
     # Define the path for the output (primarily, publication url)
-    pub_url_path = f"../database/publication_info/pub_url_{awarded_year - 3}_{awarded_year + 3}.csv"
+    pub_url_path = f"database/publication_info/pub_url_{awarded_year - 3}_{awarded_year + 3}.csv"
 
     # Make sure the author_info table exists
     try:
@@ -275,14 +283,8 @@ if __name__ == "__main__":
     awarded_year = args.awarded_year
 
     # File path check and function call
-    pub_info_file_path = f"../database/publication_info/pub_info_{awarded_year}.csv"
+    pub_info_file_path = f"database/publication_info/pub_info_{awarded_year}.csv"
     if not os.path.exists(pub_info_file_path):
         generate_pub_info_table(awarded_year)
     else:
         print(f"Publication info for year {awarded_year} already exists at {pub_info_file_path}.")
-
-# Sample usage of the command-line interface (using 2011 as the year to scrape)
-# python data_processing/scraping_helper_functions/get_pub_info.py 2011
-        
-# Sample usage of the command-line interface to scrape from 2011 to 2020
-# for year in {2011..2020}; do python data_processing/python scraping_helper_functions/get_pub_info.py $year; done
