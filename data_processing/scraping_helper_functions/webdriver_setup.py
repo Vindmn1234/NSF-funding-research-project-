@@ -1,3 +1,12 @@
+# This python script is used to write a helper function that initialized the
+# selenium webdriver for dynamic web-scraping (later used in `get_author_info.py`
+# and `get_pub_info.py`)
+
+# Resources consulted online:
+    # 1) https://chromedriver.chromium.org/getting-started
+    # 2) https://selenium-python.readthedocs.io/getting-started.html
+    # 3) https://www.browserstack.com/guide/python-selenium-to-run-web-automation-test
+
 from selenium import webdriver
 
 def initialize_driver():
@@ -9,9 +18,7 @@ def initialize_driver():
     Returns: selenium webdriver
     '''
 
-    # Here, ensure that chromedriver.exe is in system PATH
-    # Check by `where chromedriver`` (for Windows) or `which chromedriver` (for MAC)
-    # If not, move it to the system PATH to avoid running webdriver.ChromeService()
+    # Set up options for Chrome webdriver
     options = webdriver.ChromeOptions()
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_argument('--headless=new')
