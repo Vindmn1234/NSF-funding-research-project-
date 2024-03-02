@@ -71,6 +71,7 @@ make sure that the Python version is no older than 3.11.
 
 To install the packages required for this project, type the following command in the terminal:
 ```
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
