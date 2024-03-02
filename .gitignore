@@ -1,5 +1,5 @@
 # Ignore the unzipped xml files of funding information for specific years
-NSF_data
+nsf_data
 
 # Ignore large csv (due to large file size)
 database/publication_info.csv
