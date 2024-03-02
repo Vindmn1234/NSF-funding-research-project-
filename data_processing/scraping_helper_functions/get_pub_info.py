@@ -285,4 +285,4 @@ if __name__ == "__main__":
 # python data_processing/scraping_helper_functions/get_pub_info.py 2011
         
 # Sample usage of the command-line interface to scrape from 2011 to 2020
-# for year in {2011..2020}; do data_processing/python scraping_helper_functions/get_pub_info.py $year; done
+# for year in {2011..2020}; do python data_processing/python scraping_helper_functions/get_pub_info.py $year; done
