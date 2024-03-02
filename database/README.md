@@ -1,4 +1,4 @@
-`database` Directory Structure
+# `database` Directory Structure
     .
     ├── author_clustering/                  # A sub-directory containing objects related to author clustering
         ├── cluster_by_author.csv           # A dataframe that contains author's clusters based on both ti-idf and word2vec
