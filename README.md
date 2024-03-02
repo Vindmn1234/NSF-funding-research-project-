@@ -10,11 +10,11 @@ The following table outlines the table of contents for the main README file:
 | [Team Members](#team-members-and-division-of-labor) | Information about the contributors to this project |
 | [Project Description](#project-description) | Research questions, data analysis strategies, and result summary of this project |
 | [Github Repo Navigation](#github-repo-navigation) | Top-level directory layout of this repoistory |
-| [Link to Large Files](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large files "ignored" by the repository |
+| [Link to Large Files](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large, "ignored" files |
 | [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
 | [Usage of AI](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
 | [Links to Presentation](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
-| [Acknowledgement 👏👏](#acknowledgement-👏👏) | Acknowledgement from team members  |
+| [Acknowledgement](#acknowledgement-👏👏) | Acknowledgement from team members  |
 
 ## Team Members and Division of Labor
 - Guankun Li (guankun@uchicago.edu): data scraping 🔗
@@ -86,29 +86,46 @@ To integrate them into the whole workflow, please place them in the requried pos
 
 ### Configure the environment
 
-Either using base/conda environment or creating a virtual environment, 
-make sure that the Python version is no older than 3.11.
+It is recommended to create a virtual environment to run the code of this project 
+to avoid potential conflicts:
 
-To install the packages required for this project, type the following command in the terminal:
+- Create the virtual environment:
+    ```
+    python3.11 -m venv myenv # replace "myenv" with the name for the virtual environment you want
+    ```
+- Activate the virtual environment:
+    - Windows:
+        ```
+        myenv\Scripts\activate # replace "myenv" with the name for the virtual environment you want
+        ```
+    - MAC:
+        ```
+        source myenv/bin/activate # replace "myenv" with the name for the virtual environment you want
+        ```
+- Deactivate the base conda environment [suppose conda environment is the "(base)"]
+    ```
+    conda deactivate
+    ```
+
+Either using base environment (make sure that the Python version is no older than 3.11) or creating a virtual environment, the next step is to install the packages required for this project, type the following command in the terminal:
 ```
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Create virtual environment
 
 ### Setting up Chromedriver
 To facilitate the smooth running of the code, it is important to ensure that 
 `chromedriver.exe` is in system PATH (after installation). Type the following 
 commands to check where `chromedriver.exe` is located:
 - Windows:
-```
-where chromedriver
-```
+    ```
+    where chromedriver
+    ```
 - MAC:
-```
-which chromedriver
-```
+    ```
+    which chromedriver
+    ```
 
 If `chromedriver.exe` is not in system PATH, make sure to move it to the system PATH.
 
@@ -155,8 +172,6 @@ Below are the materials related to our team's presentations:
 | In-Class Presentation Slide  | [View Slide](https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#slide=id.g2bd8c1f1ef0_1_7) |
 | Updated Presentation Slide   | [View Slide](#)                                                                                |
 | Video Presentation           | [Watch Video](#)                                                                               |
-
-
 
 
 ## Acknowledgement 👏👏
