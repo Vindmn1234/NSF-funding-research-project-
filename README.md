@@ -1,13 +1,26 @@
 # final-project-scrapers
 
-This repository contains team scraper's code, presentation-related materials, 
-and final report for UChicago MACS 30122 Group Project.
+This repository contains team scraper's code, presentation materials, 
+and final project report for MACS 30122 Group Project that examines how research
+funding influences awarded authors' research quantity and quality.
 
-## Team Members:
-- Guankun Li: guankun@uchicago.edu
-- Jiazheng Li: jiazheng123@uchicago.edu
-- Tianyue Cong: tianyuec@uchicago.edu
-- Weiwu Yan: weiwuyan@uchicago.edu
+The following table outlines the table of contents for the main README file:
+| Section          | Description                                   |
+|------------------|-----------------------------------------------|
+| [Team Members and Division of Labor](#team-members-and-division-of-labor) | Information about this contributors to the project |
+| [Project Description](#project-description) | Research questions, data analysis strategies, and result summary of this project |
+| [Github Repo Navigation](#github-repo-navigation) | Top-level directory layout of this repoistory |
+| [Link to Large Files "Ignored" by the Repo](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large files "ignored" by the repository |
+| [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
+| [Usage of AI to Complete the Project](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
+| [Links to Presentation](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
+| [Acknowledgement 👏👏](#acknowledgement-👏👏) | Acknowledgement from team members  |
+
+## Team Members and Division of Labor
+- Guankun Li (guankun@uchicago.edu): data scraping 🔗
+- Jiazheng Li (jiazheng123@uchicago.edu): data visualization 📊
+- Tianyue Cong (tianyuec@uchicago.edu): data scraping 🔗
+- Weiwu Yan (weiwuyan@uchicago.edu): data analysis 🧮 
 
 ## Project Description
 This project examines the role of the National Science Foundation (NSF) 
@@ -21,18 +34,17 @@ The two **main objectives of this project** are:
 2. Identify which subfields within Behavioral and Cognitive Sciences are most affected by NSF funding in terms of 
 
 To answer the previous two research questions, this project relies on three **data sources**: 
-1) *NSF awards* from 2011 to 2020 (under the division of behavioral and cognitive science) 
+1) *NSF awards* under the division of behavioral and cognitive science from 2011 to 2020 (https://www.nsf.gov/awardsearch/download.jsp) 
 to collect awarded authors personal information, including name, email, institution, 
 and the corresponding award’s year, amount (<ins>4959</ins> entries in total);
-2) *Awarded author's Google Scholar page* (linked from NSF awards) to collect his/her 
+2) *Awarded author's Google Scholar page* (linked from NSF awards; [example](https://scholar.google.com/citations?user=kV4N4zoAAAAJ&hl=en)) to collect his/her 
 academic interests, h-index, and yearly citation counts three years before 
 and after the award (<ins>3230</ins> entries in total);
-3) *Google Scholar page for publication* (linked from author's Google Scholar page) 3 years before and after NSF awards for 
+3) *Google Scholar page for publication* (linked from author's Google Scholar page; [example](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=kV4N4zoAAAAJ&citation_for_view=kV4N4zoAAAAJ:E10ZYwHxBI8C)) 3 years before and after NSF awards for 
 each author from their Google Scholar page to collect publication-related information,
 including coauthors, journal of publication, paper tile and abstract (<ins>207,370</ins> entries in total).
 
-Data clearning and wrangling
-Data analysis strategy
+Awaiting: Data clearning and wrangling and Data analysis strategy
 
 ## Github Repo Navigation
 The following is the **top-level directory layout** of this repo:
@@ -124,26 +136,27 @@ for year in {2011..2020}; do python -m data_processing.scraping_helper_functions
 3. The third step is to get descriptive visualization of the data. To do so, simply run [descriptive_visualization.ipynb](descriptive_visualization/descriptive_visualization.ipynb) under `descriptive_visualization` directory. 
 4. The fourth step is to build and fit multiple linear regression models. To do so, simply run [prepare_data.ipynb](regression/prepare_data.ipynb) and subsequently [reg.ipynb](regression/reg.ipynb) under `regression` directory 
 
-## Usage of AI to complete the project
 
-dynamic scraping
-command-line arguments for scraping helper functions 
-debugging
-git version control
+## Usage of AI to Complete the Project
+The scraper team relied on AI chatbot (specifically, ChatGPT) to solve encountered difficulties (bugs) in some parts of this project. Below is a table summarizing the areas where ChatGPT provided assistance:
 
-## Division of Labor
-- Guankun Li: Data Scraping
-- Jiazhen Li: Data Visualization
-- Tianyue Cong: Data Scraping
-- Weiwu Yan: Data Analysis
+| Aspect                      | Description                                                                                  |
+|-----------------------------|----------------------------------------------------------------------------------------------|
+| Dynamic web-scraping using Selenium  | Consulted on methods for locating elements                                          |
+| Command-Line Arguments      | Consulted on specifying the command-line arguments for scraping helper functions             |
+| Git Version Control         | Consulted on ways to reset commands and resolve diverging branches for git version control   |
+
 
 ## Links to Presentation
-1. This is the link for our team's **in-class presentation slide**: 
-https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#slide=id.g2bd8c1f1ef0_1_7
-2. This is the link for our team's **updated presentation slide**: 
-3. This is the link for our team's **video presentation**: 
+Below are the materials related to our team's presentations:
 
-## Data source
+|  materials               | Link                                                                                           |
+|------------------------------|------------------------------------------------------------------------------------------------|
+| In-Class Presentation Slide  | [View Slide](https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#slide=id.g2bd8c1f1ef0_1_7) |
+| Updated Presentation Slide   | [View Slide](#)                                                                                |
+| Video Presentation           | [Watch Video](#)                                                                               |
+
+
 
 
 ## Acknowledgement 👏👏
