@@ -170,7 +170,7 @@ The scraper team relied on AI chatbot (specifically, ChatGPT) to solve encounter
 
 
 ## Links to Presentation and Final Report
-Below are the materials related to our team's presentations:
+Below are the materials related to our team's presentation as well as the final report:
 
 |  materials               | Link                                                                                           |
 |------------------------------|------------------------------------------------------------------------------------------------|
