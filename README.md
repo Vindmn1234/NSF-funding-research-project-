@@ -13,7 +13,7 @@ The following table outlines the table of contents for the main README file:
 | [Links to Large Files](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large, "ignored" files |
 | [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
 | [Usage of AI](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
-| [Links to Presentation](#usage-of-ai-to-complete-the-project) | Presentation-related materials of this project |
+| [Links to Presentation and Final Report](#usage-of-ai-to-complete-the-project) | Presentation-related materials of this project |
 | [Acknowledgement](#acknowledgement-👏👏) | Acknowledgement from team members  |
 
 ## Team Members and Division of Labor
@@ -170,7 +170,7 @@ The scraper team relied on AI chatbot (specifically, ChatGPT) to solve encounter
 | Git Version Control         | Consulted on ways to reset commands and resolve diverging branches for git version control   |
 
 
-## Links to Presentation
+## Links to Presentation and Final Report
 Below are the materials related to our team's presentations:
 
 |  materials               | Link                                                                                           |
