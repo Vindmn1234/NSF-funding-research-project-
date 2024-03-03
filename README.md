@@ -86,7 +86,6 @@ To integrate them into the whole workflow, please place them in the requried pos
     database/publication_info.csv
     database/content_analysis.csv
     database/preprocessed_content_analysis.csv
-    regression/merged_publications_2011_2020.csv
 
 ## Running the Code
 
