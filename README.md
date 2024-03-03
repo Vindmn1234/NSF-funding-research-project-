@@ -14,7 +14,7 @@ The following table outlines the table of contents for the main README file:
 | [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
 | [Usage of AI](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
 | [Links to Presentation and Final Report](#usage-of-ai-to-complete-the-project) | Presentation-related materials of this project |
-| [Acknowledgement](#acknowledgement-👏👏) | Acknowledgement from team members  |
+| [Acknowledgement](#acknowledgement-👏👏) | Acknowledgement from team scraper  |
 
 ## Team Members and Division of Labor
 - Guankun Li (guankun@uchicago.edu): data scraping 🔗
