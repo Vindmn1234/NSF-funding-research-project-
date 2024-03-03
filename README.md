@@ -26,25 +26,31 @@ The following table outlines the table of contents for the main README file:
 This project examines the role of the National Science Foundation (NSF) 
 funding in shaping the academic output of scholars within the realms of 
 Behavioral and Cognitive Sciences. It boasts social science significance as it
-explores the allocation and effectiveness of NSF funding in enhancing research 
-output and advancing knowledge in areas critical to societal progress and human well-being.
+explores the allocation and effectiveness of research funding, one of the most 
+crucial public resources in scientific development, in enhancing research output 
+and advancing knowledge in areas critical to societal progress and human well-being.
 
-The two **main objectives of this project** are:
-1. Evaluate the impact of research funding on scholars' *research quantity* (operationalized as the number of articles published by a scholar in a given year) and *research quality* (measured by sum of citations of the top three most-cited articles published by the scholar in the same year and also the average Impact Factor of these journals where the top three most-cited articles are published);
-2. Identify which subfields within Behavioral and Cognitive Sciences are most affected by NSF funding in terms of 
+The three **main objectives of this project** are:
+1. Assess NSF funding's effect on research output's quantity and quality, using metrics such as publication counts and citation impact.
+2. Utilize k-means clustering on vectorized paper abstracts to categorize research subfields within the Behavioral and Cognitive Sciences.
+3. Determine the differential impact of NSF funding across these subfields through clustering and heterogeneity analysis. 
 
-To answer the previous two research questions, this project relies on three **data sources**: 
-1) *NSF awards* under the division of behavioral and cognitive science from 2011 to 2020 (https://www.nsf.gov/awardsearch/download.jsp) 
-to collect awarded authors personal information, including name, email, institution, 
+This project relied on three **data sources**: 
+1) *NSF awards* under the division of behavioral and cognitive science from 2011 to 2020 (https://www.nsf.gov/awardsearch/download.jsp) to collect awarded authors personal information, including name, email, institution, 
 and the corresponding award’s year, amount (<ins>4959</ins> entries in total);
-2) *Awarded author's Google Scholar page* (linked from NSF awards; [example](https://scholar.google.com/citations?user=kV4N4zoAAAAJ&hl=en)) to collect his/her 
-academic interests, h-index, and yearly citation counts three years before 
+2) *Awarded author's Google Scholar page* (linked from NSF awards; [example](https://scholar.google.com/citations?user=kV4N4zoAAAAJ&hl=en)) to collect his/her academic interests, h-index, and yearly citation counts three years before 
 and after the award (<ins>3230</ins> entries in total);
-3) *Google Scholar page for publication* (linked from author's Google Scholar page; [example](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=kV4N4zoAAAAJ&citation_for_view=kV4N4zoAAAAJ:E10ZYwHxBI8C)) 3 years before and after NSF awards for 
-each author from their Google Scholar page to collect publication-related information,
+3) *Google Scholar page for publication* (linked from author's Google Scholar page; [example](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=kV4N4zoAAAAJ&citation_for_view=kV4N4zoAAAAJ:E10ZYwHxBI8C)) 3 years before and after NSF awards for each author from their Google Scholar page to collect publication-related information,
 including coauthors, journal of publication, paper tile and abstract (<ins>207,370</ins> entries in total).
 
-Awaiting: Data clearning and wrangling and Data analysis strategy
+After data scraping, our teams performed four data cleaning/wrangling steps. First, when scraping author and publication information, we chose to focus on the division of behavioral and cognitive science within the directory for social, behavioral, and economic science. This not only enhance the efficiency of our research by focusing on a specific segment within a vast dataset but also zoom in on a more defined ”cluster” of related disciplines. Second, our team performed sufficient number of checks of NA values both during and after web-scraping processes. For most NA values, our team removed them on the fly. The only exception was authors’ yearly citation count, where we filled these NA values with zero. Third, our team merged funding, author, and publication information together and formated the string and numerical formats in the merged dataframe. Fourth, our team performed text tokenization and normalization for paper abstract for later clustering analysis.
+
+Our key findings include:
+- For **descriptive statistics**, we found an upward trend in NSF funding over the years, indicating increasing financial support for research. The scatter plot results suggest a positive correlation between NSF funding and both the quantity and quality of publications. 
+- For **regression analysis**, baseline regression shows that NSF funding significantly increases the quantity of publications but has a negative impact on their quality. However, after controlling for time-fixed effects, funding positively affects publication quantity without significantly affecting quality, suggesting that NSF funding boosts the volume of academic research output in the Behavioral and Cognitive Sciences without detrimentally impacting the quality of research.
+- For **clustering analysis**, after manually coded the eight clusters of study, we found significant variance in financial support within the Behavioral and Cognitive Sciences division, with Linguistics receiving the most funding while Human Biology, Archaeology, and Environmental Studies receiving the least. 
+- For **regression analysis grouped by clustered subfields**, our team found that funding consistently has a positive effect on the number of publications across all subfields. The effect of funding is particularly strong in Cognitive Neuroscience, Human Biology, and Environmental Studies, indicating that these subfields may benefit more from increased funding in terms of publication output.
+
 
 ## Github Repo Navigation
 The following is the **top-level directory layout** of this repo:
