@@ -10,7 +10,7 @@ The following table outlines the table of contents for the main README file:
 | [Team Members](#team-members-and-division-of-labor) | Information about the contributors to this project |
 | [Project Description](#project-description) | Research questions, data analysis strategies, and result summary of this project |
 | [Github Repo Navigation](#github-repo-navigation) | Top-level directory layout of this repoistory |
-| [Links to Large Files](#link-to-large-files-ignored-by-the-repo) |  Information about where to view and download large, "ignored" files |
+| [Links to Large Files](#links-to-large-files-ignored-by-the-repo) |  Information about where to view and download large, "ignored" files |
 | [Running the Code](#running-the-code) | Information about how to run the code to reproduce the results |
 | [Usage of AI](#usage-of-ai-to-complete-the-project) | Information about where AI tools was used in this project |
 | [Links to Presentation and Final Report](#usage-of-ai-to-complete-the-project) | Presentation-related materials of this project |
