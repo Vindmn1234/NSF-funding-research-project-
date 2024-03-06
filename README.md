@@ -176,7 +176,7 @@ Below are the materials related to our team's presentation as well as the final 
 |  materials               | Link                                                                                           |
 |------------------------------|------------------------------------------------------------------------------------------------|
 | In-Class Presentation Slide  | [View Slide](https://docs.google.com/presentation/d/16sgquYXFNGgwBLi8cZyFA8T0bTW2om5T/edit#slide=id.g2bd8c1f1ef0_1_7) |
-| Updated Presentation Slide   | [View Slide](https://docs.google.com/presentation/d/1np87bklhwDuJ54SQmsRJux7S2diFRMsh/edit?usp=drive_link&ouid=117423846760378080439&rtpof=true&sd=true)  |
+| Updated Presentation Slide   | [View Slide](https://docs.google.com/presentation/d/1zuoC_UwC_TSaRYpRJ7Av7ij_6d22LNMf/edit?usp=drive_link&ouid=117423846760378080439&rtpof=true&sd=true)  |
 | Video Presentation           | [Watch Video](#)                                                                               |
 | Final Report   | [View Pdf](https://drive.google.com/file/d/1HSWhWwPfE3M057aHXiM4ExJ7d3eOVD2_/view?usp=sharing)                                                                                |
 
