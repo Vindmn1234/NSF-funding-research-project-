@@ -62,6 +62,7 @@ The following is the **top-level directory layout** of this repo:
     ├── descriptive_visualization/    # Visualize descriptive results
     ├── nsf_data/                     # NSF funding information from 2011 to 2020 (ignored by the repo)
     ├── regression/                   # Build and fit linear regression models
+    ├── slides/                       # slides for presentation and an updated version
     ├── .gitignore
     ├── LICENSE
     ├── README.md
