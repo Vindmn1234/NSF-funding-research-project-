@@ -30,10 +30,11 @@ explores the allocation and effectiveness of research funding, one of the most
 crucial public resources in scientific development, in enhancing research output 
 and advancing knowledge in areas critical to societal progress and human well-being.
 
-The three **main objectives of this project** are:
+The four **main objectives of this project** are:
 1. Assess NSF funding's effect on research output's quantity and quality, using metrics such as publication counts and citation impact.
 2. Utilize k-means clustering on vectorized paper abstracts to categorize research subfields within the Behavioral and Cognitive Sciences.
-3. Determine the differential impact of NSF funding across these subfields through clustering and heterogeneity analysis. 
+3. Determine the differential impact of NSF funding across these subfields through clustering and heterogeneity analysis.
+4. Conduct structural topic modeling to extract the major research topics within this field along with their popularity trend over past years.
 
 This project relied on three **data sources**: 
 1) *NSF awards* under the division of behavioral and cognitive science from 2011 to 2020 (https://www.nsf.gov/awardsearch/download.jsp) to collect awarded authors personal information, including name, email, institution, 
